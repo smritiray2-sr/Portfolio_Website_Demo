@@ -1,80 +1,6 @@
 import { useRef } from 'react';
 import { ScrollView, Text, View, StyleSheet, Pressable } from 'react-native';
 
-/**
- * PORTFOLIO SCREEN – SMRITI RAY
- * 
- * ✅ EXPO COMPATIBILITY VERIFIED
- * This component uses only React Native APIs that are fully supported by Expo.
- * No native modules or unsupported libraries are required.
- * 
- * 🔧 IMPORT FIX – React Hooks vs React Native Components:
- * React hooks (useRef, useEffect, useState, etc.) MUST be imported from 'react'
- * React Native components (ScrollView, Text, View, etc.) come from 'react-native'
- * On Expo Web, importing hooks from 'react-native' causes "(0, _reactNativeWebDistIndex.useRef) is not a function" error
- * This separation ensures compatibility across all platforms (iOS, Android, Web)
- * 
- * SUPPORTED COMPONENTS USED:
- * - ScrollView: Native scrolling container (Expo built-in)
- * - Text: Cross-platform text rendering (Expo built-in)
- * - View: Layout container (Expo built-in)
- * - StyleSheet: Performance-optimized styles (Expo built-in)
- * - Pressable: Touch interaction handler (Expo built-in)
- * - useRef: React hook for scroll reference (React built-in)
- * 
- * DEPENDENCIES USED:
- * - react-native: Included in Expo SDK
- * - expo-router: For navigation (already in package.json)
- * - No custom native modules
- * 
- * HOW TO RUN WITH EXPO GO (Beginner Guide):
- * 
- * 1. Prerequisites:
- *    - Node.js installed (v18+)
- *    - Expo CLI: npm install -g expo-cli
- *    - Expo Go app on your phone (iOS App Store or Google Play)
- * 
- * 2. Start development server:
- *    $ npx expo start
- *    This launches the Expo development server on your computer
- * 
- * 3. Connect your phone:
- *    Option A - Scan QR code:
- *      • Open Expo Go app on your phone
- *      • Scan the QR code shown in terminal
- *      • App loads automatically on your device
- * 
- *    Option B - Run on simulator/emulator:
- *      • Press 'i' in terminal for iOS Simulator
- *      • Press 'a' in terminal for Android Emulator
- *      • App loads automatically in emulator
- * 
- * 4. Live reload:
- *    • Save changes to this file
- *    • App updates automatically on your device
- *    • No rebuild required!
- * 
- * 5. Troubleshooting:
- *    • QR code not scanning? Check both devices on same WiFi network
- *    • Port 8081 in use? Run: npx expo start --clear
- *    • Still having issues? Run: npm install && npx expo start
- * 
- * For more info: https://docs.expo.dev/get-started/introduction/
- */
-
-/**
- * Component-Based Architecture Benefits:
- * - Reusability: Components can be used in multiple places with different props
- * - Maintainability: Changes to a component's design/behavior happen in one place
- * - Scalability: Easy to add new sections or features without touching the main screen
- * - Testability: Individual components can be tested in isolation
- * - Readability: The main HomeScreen component is clean and easy to understand
- * - Team collaboration: Multiple developers can work on different components simultaneously
- */
-
-// ============================================================================
-// HERO SECTION COMPONENT
-// ============================================================================
 interface HeroSectionProps {
   onViewWorkPress: () => void;
 }
@@ -88,9 +14,6 @@ function HeroSection({ onViewWorkPress }: HeroSectionProps) {
         Turning data into clear, actionable insights.
       </Text>
       
-      {/* CTA Button: Guides user to next action (Projects)
-          Improves UX by reducing friction—users don't have to scroll to find work
-          Subtle design keeps focus on the intro while offering a clear next step */}
       <Pressable 
         style={({ pressed }) => [
           styles.ctaButton,
@@ -104,9 +27,6 @@ function HeroSection({ onViewWorkPress }: HeroSectionProps) {
   );
 }
 
-// ============================================================================
-// ABOUT SECTION COMPONENT
-// ============================================================================
 function AboutSection() {
   return (
     <View style={styles.section}>
@@ -118,9 +38,6 @@ function AboutSection() {
   );
 }
 
-// ============================================================================
-// PROJECT CARD COMPONENT
-// ============================================================================
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -137,9 +54,6 @@ function ProjectCard({ title, description, tech }: ProjectCardProps) {
   );
 }
 
-// ============================================================================
-// PROJECTS SECTION COMPONENT
-// ============================================================================
 interface ProjectData {
   id: number;
   title: string;
@@ -159,9 +73,6 @@ function ProjectsSection({ projects }: ProjectsSectionProps) {
         This portfolio shows projects I've completed through coursework and personal practice. I work with Excel, SQL, and Python to clean data and find insights. Each project taught me something new about how to approach a problem thoughtfully.
       </Text>
       
-      {/* Project Cards – Component composition keeps code DRY
-          Each card is rendered by the reusable ProjectCard component
-          Consistent styling and structure across all projects */}
       <View style={styles.projectsContainer}>
         {projects.map((project) => (
           <ProjectCard
@@ -176,9 +87,6 @@ function ProjectsSection({ projects }: ProjectsSectionProps) {
   );
 }
 
-// ============================================================================
-// CONTACT SECTION COMPONENT
-// ============================================================================
 function ContactSection() {
   return (
     <View style={styles.section}>
@@ -189,30 +97,7 @@ function ContactSection() {
   );
 }
 
-/**
- * PRODUCTION DEPLOYMENT OPTIONS:
- * 
- * This app can be deployed to:
- * 1. Expo Go – Already works! Scan QR code after npx expo start
- * 2. Expo Application Services (EAS) – Managed build service
- *    $ eas build --platform ios --platform android
- * 3. Apple App Store – Via EAS Submit
- *    $ eas submit --platform ios
- * 4. Google Play Store – Via EAS Submit
- *    $ eas submit --platform android
- * 5. Web – Already included!
- *    $ npx expo start --web
- * 
- * No custom native code needed. This is pure React Native.
- */
-
-// ============================================================================
-// MAIN SCREEN COMPONENT
-// ============================================================================
 export default function HomeScreen() {
-  // TypeScript Fix: Explicitly type the ScrollView ref
-  // Without type annotation, TypeScript infers 'null' and prevents calling scrollTo()
-  // By specifying ScrollView type, TypeScript knows about the scrollTo() method
   const scrollViewRef = useRef<ScrollView>(null);
 
   // Project data for portfolio
@@ -237,7 +122,6 @@ export default function HomeScreen() {
     },
   ];
 
-  // Scroll to Projects section on button press
   const handleViewWork = () => {
     scrollViewRef.current?.scrollTo({ y: 450, animated: true });
   };
@@ -252,14 +136,7 @@ export default function HomeScreen() {
   );
 }
 
-// ============================================================================
-// STYLES
-// ============================================================================
-// Spacing system: 8px base unit for consistent rhythm
-// Color palette: Professional, calm, recruiter-friendly
-// Typography: Clear hierarchy with intentional font weights and sizes
 const styles = StyleSheet.create({
-  // ===== CONTAINER & LAYOUT =====
   container: {
     backgroundColor: '#FAFBFC',
   },
@@ -269,7 +146,6 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
 
-  // ===== HERO SECTION =====
   hero: {
     marginBottom: 72,
   },
@@ -333,7 +209,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
 
-  // ===== PROJECT CARDS =====
   projectsContainer: {
     marginTop: 28,
     gap: 16,
